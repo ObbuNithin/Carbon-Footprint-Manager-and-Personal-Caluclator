@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Industries - Carbon Footprint</title>
+    <!-- Add your CSS files here -->
+</head>
+<body>
+
+    <header>
+        <!-- Include your header code here -->
+    </header>
+
+    <main>
+        <section id="industries" class="industries-section">
+            <div class="container">
+                <h1>Industries Table</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Carbon Footprint</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for industry in industries %}
+                        <tr>
+                            <td>{{ industry.id }}</td>
+                            <td>{{ industry.name }}</td>
+                            <td>{{ industry.location }}</td>
+                            <td>{{ industry.carbon_footprint }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Include your footer code here -->
+    </footer>
+
+</body>
+</html>

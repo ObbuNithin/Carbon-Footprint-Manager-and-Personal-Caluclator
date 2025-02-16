@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>View transportation</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 70px;
+            }
+    
+            .form-container {
+                margin-top: 50px;
+                max-width: 600px;
+            }
+    
+            .form-header {
+                margin-bottom: 30px;
+                text-align: center;
+            }
+        </style>
+    
+        <meta charset="utf-8">
+      <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      <title>Industry Carbon Footprint Management System</title>
+      <meta name="description" content="">
+      <meta name="keywords" content="">
+    
+      <!-- Favicons -->
+      <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="icon">
+      <link href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    
+      <!-- Fonts -->
+      <link href="https://fonts.googleapis.com" rel="preconnect">
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+      <!-- Vendor CSS Files -->
+      <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='vendor/aos/aos.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+    
+      <!-- Main CSS File -->
+      <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+    </head>
+<body>
+    <header id="header" class="header d-flex align-items-center fixed-top">
+        <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+    
+          <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+            <!-- Uncomment the line below if you also wish to use an image logo -->
+            <!-- <img src="static/img/logo.png" alt=""> -->
+            <h1 class="sitename">Carbon Footprint</h1>
+            <span>.</span>
+          </a>
+    
+          <nav id="navmenu" class="navmenu">
+            <ul>
+              <li><a href="{{ url_for('index') }}" class="active">Home<br></a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#team">Team</a></li>
+              <li class="dropdown"><a href="#"><span>Signup</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                    <ul>
+                      <li><a href="admin_login">Admin</a></li>
+                      <li><a href="{{ url_for('signup') }}">Industry Manager</a></li>
+                      <!-- <li><a href="auditor_signup">Auditor</a></li>
+                      <li><a href="#">Publice User</a></li> -->
+                    </ul>
+              </li>
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+          </nav>
+    
+          <a class="btn-getstarted" href="{{ url_for('home') }}">LogOut</a>
+    
+        </div>
+    </header>
+    <div class="container mt-5">
+        <h2 class="text-center">Update Process</h2>
+        <form action="{{ url_for('update_process', process_id=process.process_id) }}" method="POST">
+            <div class="form-group">
+                <label for="process_name">Process Name:</label>
+                <input type="text" id="process_name" name="process_name" class="form-control" value="{{ process.process_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="energy_consumption">Energy Consumption:</label>
+                <input type="number" step="0.01" id="energy_consumption" name="energy_consumption" class="form-control" value="{{ process.energy_consumption }}" required>
+            </div>
+            <div class="form-group">
+                <label for="emission_factor">Emission Factor:</label>
+                <input type="number" step="0.01" id="emission_factor" name="emission_factor" class="form-control" value="{{ process.emission_factor }}" required>
+            </div>
+            <div class="form-group">
+              <label for="process_date">Process Date:</label>
+              <input type="date" id="process_date" name="process_date" class="form-control" 
+                     value="{{ process.process_date }}" required>
+          </div>
+          
+            <button type="submit" class="btn btn-success">Update</button>
+            <a href="{{ url_for('view_processes') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

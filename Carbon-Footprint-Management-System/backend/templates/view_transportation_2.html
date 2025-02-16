@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>View Transportation</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .table-container {
+                margin-top: 100px;
+            }
+        </style>
+    
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>Industry Carbon Footprint Management System</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+    
+        <!-- Favicons -->
+        <link href="static/img/favicon.png" rel="icon">
+        <link href="static/img/apple-touch-icon.png" rel="apple-touch-icon">
+    
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com" rel="preconnect">
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+        <!-- Vendor CSS Files -->
+        <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <link href="static/vendor/aos/aos.css" rel="stylesheet">
+        <link href="static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+        <link href="static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    
+        <!-- Main CSS File -->
+        <link href="static/css/main.css" rel="stylesheet">
+    </head>
+<body>
+    <header id="header" class="header d-flex align-items-center fixed-top">
+        <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+            <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+                <h1 class="sitename">Carbon Footprint</h1>
+                <span>.</span>
+            </a>
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="{{ url_for('index') }}" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li class="dropdown">
+                        <a href="#"><span>Signup</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul>
+                            <li><a href="admin_login">Admin</a></li>
+                            <li><a href="{{ url_for('signup') }}">Industry Manager</a></li>
+                            
+                        </ul>
+                    </li>
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+            <a class="btn-getstarted" href="{{ url_for('home') }}">LogOut</a>
+        </div>
+    </header>
+
+    <div class="container table-container">
+        <h2>Transportation</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Transport ID</th>
+                    <th>Vehicle Type</th>
+                    <th>Distance Travelled</th>
+                    <th>Fuel Consumption</th>
+                    <th>Date</th> <!-- New Date Column -->
+                    <th>Username</th> <!-- New Username Column -->
+                    <th>Industry Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transport in transportation %}
+                    <tr>
+                        <td>{{ transport.transport_id }}</td>
+                        <td>{{ transport.vehicle_type }}</td>
+                        <td>{{ transport.distance_travelled }}</td>
+                        <td>{{ transport.fuel_consumption }}</td>
+                        <td>{{ transport.date }}</td> <!-- Display the Date -->
+                        <td>
+                            {% if transport.username %}
+                                {{ transport.username }}
+                            {% else %}
+                                null
+                            {% endif %}
+                        </td> <!-- Display the Username or 'null' if it's missing -->
+                        <td>{{ transport.industry_name }}</td>
+                        <td>
+                            <form action="{{ url_for('delete_transportation', transport_id=transport.transport_id) }}" method="POST" style="display:inline;">
+                                <button class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                            <a href="{{ url_for('update_transportation', transport_id=transport.transport_id) }}" class="btn btn-warning btn-sm">Update</a>
+                            
+                            <!-- Add Warn Button -->
+                            {% if transport['username'] %}
+    <form action="{{ url_for('warn_user', username=transport['username']) }}" method="POST" style="display:inline;">
+        <button class="btn btn-warning btn-sm">Warn</button>
+    </form>
+{% else %}
+    <button class="btn btn-warning btn-sm" disabled>Warn</button>
+{% endif %}
+
+                            
+                        </td>
+                        
+                        
+                        
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center">No transportation entries available.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Home</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

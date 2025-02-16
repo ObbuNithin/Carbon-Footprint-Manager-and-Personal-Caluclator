@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industry Summary</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Industry Summary (ID: {{ industry_id }})</h1>
+
+    <h2>Key Metrics</h2>
+    <ul>
+        <li>Total Energy Consumption: {{ data.process_totals.total_energy_consumption }}</li>
+        <li>Total Emission Factor: {{ data.process_totals.total_emission_factor }}</li>
+        <li>Total Fuel Consumption: {{ data.transportation_totals.total_fuel_consumption }}</li>
+        <li>Total Distance Traveled: {{ data.transportation_totals.total_distance_travelled }}</li>
+        <li>Total Emissions: {{ data.emission_totals.total_emissions }}</li>
+        <li>Total Offsets: {{ data.offset_totals.total_offsets }}</li>
+        <li>Net Emissions: {{ data.net_emissions }}</li>
+    </ul>
+
+    <h2>Inferences</h2>
+    <ul>
+        {% for inference in inferences %}
+            <li>{{ inference }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Graphs</h2>
+    <canvas id="emissionsChart"></canvas>
+
+    <!-- <script>
+        const ctx = document.getElementById('emissionsChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Processes', 'Transportation', 'Emission Sources', 'Offsets'],
+                datasets: [{
+                    label: 'Values',
+                    data: [
+                        {{ data.process_totals.total_emission_factor or 0 }},
+                        {{ data.transportation_totals.total_fuel_consumption or 0 }},
+                        {{ data.emission_totals.total_emissions or 0 }},
+                        {{ data.offset_totals.total_offsets or 0 }}
+                    ],
+                    backgroundColor: ['#f39c12', '#e74c3c', '#9b59b6', '#2ecc71']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Emission vs Offset Data'
+                    }
+                }
+            }
+        });
+    </script> -->
+</body>
+</html>

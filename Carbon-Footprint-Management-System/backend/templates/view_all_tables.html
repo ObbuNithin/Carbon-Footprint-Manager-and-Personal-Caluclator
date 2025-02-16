@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View All Tables</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 70px; /* Matches the height of the fixed header */
+        }
+    
+        header.header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1030;
+            background-color: #fff; /* Ensure the background is opaque */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+        }
+    
+        .table-container {
+            margin-top: 30px;
+        }
+    
+        .table-container h2 {
+            margin-bottom: 20px;
+        }
+    
+        .table {
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+    
+        .btn-action {
+            font-size: 12px;
+            margin-right: 5px;
+        }
+    
+        .btn-back {
+            margin-top: 20px;
+        }
+    </style>
+    
+</head>
+<body>
+
+<header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+        <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
+            <h1 class="sitename">Industry Carbon Footprint Management System</h1>
+        </a>
+    </div>
+</header>
+
+<div class="container table-container">
+    <!-- Transportation Table -->
+    <h2>Transportation Table</h2>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Vehicle Type</th>
+                <th>Distance Traveled</th>
+                <th>Fuel Consumption</th>
+                <th>Industry ID</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transportation in transportation_data %}
+                <tr>
+                    <td>{{ transportation.username }}</td>
+                    <td>{{ transportation.vehicle_type }}</td>
+                    <td>{{ transportation.distance_travelled }}</td>
+                    <td>{{ transportation.fuel_consumption }}</td>
+                    <td>{{ transportation.industry_id }}</td>
+                    <td>
+                        <!-- Update Button -->
+                        <form action="{{ url_for('update_transportation', transport_id=transportation['transport_id']) }}" method="GET" style="display: inline;">
+                            <button type="submit" class="btn btn-primary btn-sm btn-action">Update</button>
+                        </form>
+    
+                        <!-- Delete Button -->
+                        <form action="{{ url_for('delete_transportation', transport_id=transportation['transport_id']) }}" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-danger btn-sm btn-action" onclick="return confirm('Are you sure you want to delete this item?')">Delete</button>
+                        </form>
+    
+                        <!-- Warn Button -->
+                        <form action="{{ url_for('warn_user', username=transportation['username']) }}" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-warning btn-sm btn-action">Warn</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">No transportation data available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    
+    
+
+    <!-- Carbon Offsets Table -->
+    <h2>Carbon Offsets Table</h2>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Offset ID</th>
+                <th>Offset Type</th>
+                <th>Amount Offset</th>
+                <th>Date Purchased</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for offset in carbon_offsets_data %}
+                <tr>
+                    <td>{{ offset.username }}</td>
+                    <td>{{ offset.offset_id }}</td>
+                    <td>{{ offset.offset_type }}</td>
+                    <td>{{ offset.amount_offset }}</td>
+                    <td>{{ offset.date_purchased }}</td>
+                    <td>
+                        <a href="{{ url_for('update_carbon_offset', offset_id=offset.offset_id) }}" class="btn btn-warning btn-sm">Update</a>
+                        <form action="{{ url_for('delete_carbon_offset', offset_id=offset.offset_id) }}" method="POST" style="display:inline;">
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">No carbon offset data available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Emission Sources Table -->
+    <h2>Emission Sources Table</h2>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Source Type</th>
+                <th>Emission Value</th>
+                <th>Emission Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emission in emission_sources_data %}
+                <tr>
+                    <td>{{ emission.source_type }}</td>
+                    <td>{{ emission.emission_value }}</td>
+                    <td>{{ emission.emission_date }}</td>
+                    <td>
+                        <a href="{{ url_for('update_emission_source', source_id=emission.source_id) }}" class="btn btn-warning btn-sm">Update</a>
+                        <form action="{{ url_for('delete_emission_source', source_id=emission.source_id) }}" method="POST" style="display:inline;">
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">No emission source data available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Back Button -->
+    <a href="{{ url_for('index') }}" class="btn btn-primary btn-back">Back to Home</a>
+</div>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
