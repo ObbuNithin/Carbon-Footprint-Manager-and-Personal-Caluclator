@@ -1,5 +1,5 @@
 # Carbon Footprint Tracing
-📜 Project Overview
+📜 Project Overview:
 The *Carbon Footprint Tracing* project is a Database Management System (DBMS) designed to track, analyze, and visualize carbon emissions. This platform enables individuals, industries, and organizations to monitor their environmental impact and take actionable steps toward sustainability. By integrating AI-driven suggestions, real-time monitoring, and robust data visualization, the system promotes eco-friendly decision-making and compliance with environmental regulations.
 
 🎯 Features
