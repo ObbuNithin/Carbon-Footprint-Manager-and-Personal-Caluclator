@@ -41,11 +41,6 @@ git clone https://github.com/ObbuNithin/Carbon-Footprint-Manager-and-Personal-Ca
 cd CarbonFootprintTracing/backend
 ```
 
-**3️⃣ Install Dependencies**
-```
-pip install -r requirements.txt
-```
-
 **4️⃣ Run the Flask Server**
 ```
 python main.py
